@@ -1,4 +1,4 @@
-from .spit_polygon import split_polygon
+from .split_polygon import split_polygon
 import json
 
 example_polygon1 = """
