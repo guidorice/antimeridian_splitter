@@ -9,7 +9,7 @@ from shapely.ops import split
 from .geopolygon_utils import check_crossing, translate_polygons
 
 
-def split_polygon(geojson: dict, output_format: str = "geojson") -> Union[
+def split_polygon(geojson: dict, output_format: str = "geojson", validate: bool = False) -> Union[
     List[dict], List[Polygon], GeometryCollection
     ]:
     """
@@ -37,6 +37,7 @@ def split_polygon(geojson: dict, output_format: str = "geojson") -> Union[
         output_format (str): Available options: "geojson", "polygons", "geometrycollection"
                              If "geometrycollection" returns a Shapely GeometryCollection.
                              Otherwise, returns a list of either GeoJSONs or Shapely Polygons
+        validate (bool): Checks if all longitudes are within [-180.0, 180.0]
       
     Returns:
         List[dict]/List[Polygon]/GeometryCollection: antimeridian-safe polygon(s)
@@ -56,7 +57,7 @@ def split_polygon(geojson: dict, output_format: str = "geojson") -> Union[
 
         for coord_index, (lon, _) in enumerate(ring[1:], start=1):
             lon_prev = ring[coord_index - 1][0] # [0] corresponds to longitude coordinate
-            if check_crossing(lon, lon_prev, validate=False):
+            if check_crossing(lon, lon_prev, validate=validate):
                 direction = math.copysign(1, lon - lon_prev)
                 coords_shift[ring_index][coord_index][0] = lon - (direction * 360.0)
                 crossings += 1
