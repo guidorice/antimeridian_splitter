@@ -17,7 +17,7 @@ def check_crossing(lon1: float, lon2: float, validate: bool = True, dlon_thresho
 def translate_polygons(geometry_collection: GeometryCollection, 
                        output_format: str = "geojson") -> Union[List[dict], List[Polygon]]:
     
-  for polygon in geometry_collection:
+  for polygon in geometry_collection.geoms:
       (minx, _, maxx, _) = polygon.bounds
       if minx < -180: geo_polygon = affinity.translate(polygon, xoff = 360)
       elif maxx > 180: geo_polygon = affinity.translate(polygon, xoff = -360)
