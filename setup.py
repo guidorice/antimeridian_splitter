@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="antimeridian_splitter",
-    version="0.1.0",
+    version="0.2.0",
     author="Pawarit Laosunthara, Alex G Rice",
     author_email="alex@radiant.earth",
     description="Handling problematic real-world geometries (polygons) that cross the antimeridian (aka 180th meridian or International Date Line)",
